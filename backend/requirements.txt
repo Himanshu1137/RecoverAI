@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2-binary
+pydantic
+python-dotenv
+pandas
+numpy
+scikit-learn
+joblib
+pytest
+httpx
+google-genai
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+python-jose[cryptography]

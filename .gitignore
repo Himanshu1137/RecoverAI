@@ -1,0 +1,33 @@
+﻿# Secrets / Environment
+.env
+*.env
+backend/.env
+frontend/.env
+
+# Python environments
+venv/
+backend/venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+dist/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Operating System
+.DS_Store
+Thumbs.db

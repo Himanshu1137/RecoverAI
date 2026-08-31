@@ -1,0 +1,758 @@
+*{
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #172033;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+
+/* =========================
+   Main App Layout
+========================= */
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+
+/* =========================
+   Left Sidebar
+========================= */
+
+.sidebar {
+  width: 230px;
+  min-height: 100vh;
+  padding: 24px 16px;
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 8px 28px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 12px;
+  text-align: left;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #172033;
+}
+
+.nav-item:hover {
+  background: #f8fafc;
+}
+
+.nav-item.active {
+  background: #eef2ff;
+  font-weight: 700;
+}
+
+
+/* =========================
+   Main Content
+========================= */
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.content {
+  padding: 32px;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.header {
+  min-height: 92px;
+  padding: 20px 32px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: #667085;
+}
+
+
+/* =========================
+   Merchant Header
+========================= */
+
+.merchant-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.merchant {
+  padding: 9px 14px;
+  border-radius: 8px;
+  background: #f5f7fb;
+  font-weight: 700;
+}
+
+.logout-button {
+  border: 1px solid #d0d5dd;
+  background: #ffffff;
+  padding: 9px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.logout-button:hover {
+  background: #f8fafc;
+}
+
+
+/* =========================
+   Dashboard Stats
+========================= */
+
+.stats,
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.stat-card,
+.card-section,
+.agent-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.stat-card {
+  padding: 20px;
+}
+
+.stat-card p {
+  margin: 0;
+  color: #667085;
+}
+
+.stat-card h2 {
+  margin: 10px 0 6px;
+}
+
+.stat-card span {
+  font-size: 13px;
+  color: #667085;
+}
+
+
+/* =========================
+   Card Sections
+========================= */
+
+.card-section {
+  margin-top: 24px;
+  padding: 24px;
+}
+
+.card-section > h2 {
+  margin-top: 0;
+}
+
+
+/* =========================
+   Recovery Opportunities
+========================= */
+
+.opportunity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.opportunity:last-child {
+  border-bottom: 0;
+}
+
+.opportunity div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.opportunity span {
+  color: #667085;
+  font-size: 14px;
+}
+
+
+/* =========================
+   Recovery Table
+========================= */
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 13px;
+  text-align: left;
+  border-bottom: 1px solid #eeeeee;
+}
+
+th {
+  color: #667085;
+  font-size: 14px;
+}
+
+.priority {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.high {
+  background: #fee2e2;
+}
+
+.medium {
+  background: #fef3c7;
+}
+
+.low {
+  background: #dcfce7;
+}
+
+.small-button,
+.agent-card button {
+  border: 0;
+  padding: 9px 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  background: #eef2ff;
+  color: #172033;
+}
+
+.small-button:hover,
+.agent-card button:hover {
+  background: #e0e7ff;
+}
+
+.small-button:disabled,
+.agent-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.notice {
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #eef2ff;
+}
+
+.ml-explanation {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.ml-explanation ul {
+  margin-bottom: 10px;
+  padding-left: 22px;
+}
+
+
+/* =========================
+   AI Agent
+========================= */
+
+.agent-card {
+  max-width: 800px;
+  padding: 24px;
+}
+
+.agent-card h2 {
+  margin-top: 0;
+}
+
+.agent-card textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 12px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  outline: none;
+}
+
+.agent-card textarea:focus {
+  border-color: #6366f1;
+}
+
+.agent-card button {
+  margin-top: 12px;
+}
+
+.agent-answer {
+  margin-top: 20px;
+  padding: 18px;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.agent-answer p {
+  white-space: pre-line;
+}
+
+
+/* =========================
+   Analytics
+========================= */
+
+.chart {
+  margin-top: 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+
+/* =========================
+   Merchant Authentication
+========================= */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #f5f7fb;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.auth-card h1 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin: 8px 0;
+  text-align: center;
+}
+
+.auth-card > p {
+  color: #667085;
+  text-align: center;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.auth-card label {
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+}
+
+.auth-card input:focus {
+  border-color: #6366f1;
+}
+
+.auth-card form > button {
+  margin-top: 12px;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  background: #172033;
+  color: #ffffff;
+}
+
+.auth-card form > button:hover {
+  background: #27334a;
+}
+
+.auth-card form > button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-card > p button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.auth-error {
+  margin: 6px 0 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.auth-success {
+  margin: 6px 0 0;
+  padding: 10px;
+  border-radius: 8px;
+  background: #dcfce7;
+  color: #166534;
+}
+
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 190px;
+  }
+
+  .stats,
+  .analytics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .content {
+    padding: 24px;
+  }
+}
+
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 650px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .sidebar nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .nav-item {
+    width: auto;
+  }
+
+  .stats,
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    padding: 18px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .merchant-actions {
+    margin-top: 14px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .content {
+    padding: 18px;
+  }
+
+  .auth-card {
+    padding: 22px;
+  }
+
+  .opportunity {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+/* =========================
+   Merchant Profile Dropdown
+========================= */
+
+.merchant-profile-wrapper {
+  position: relative;
+}
+
+.merchant {
+  border: 0;
+  cursor: pointer;
+  padding: 9px 14px;
+  border-radius: 8px;
+  background: #f5f7fb;
+  font-weight: 700;
+  color: #172033;
+}
+
+.merchant:hover {
+  background: #eef2ff;
+}
+
+.merchant-profile-card {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 320px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.15);
+  z-index: 1000;
+}
+
+.merchant-profile-card h3 {
+  margin: 0 0 16px;
+  font-size: 18px;
+}
+
+.profile-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.profile-row:last-child {
+  border-bottom: 0;
+}
+
+.profile-row span {
+  font-size: 12px;
+  color: #667085;
+}
+
+.profile-row strong {
+  font-size: 14px;
+  color: #172033;
+  word-break: break-word;
+}
+
+@media (max-width: 650px) {
+  .merchant-profile-card {
+    right: auto;
+    left: 0;
+    width: min(320px, 85vw);
+  }
+}
+/* =========================
+   Transactions Page
+========================= */
+
+.transaction-page {
+  width: 100%;
+}
+
+.transaction-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.transaction-form-card,
+.csv-upload-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.transaction-form-card h2,
+.csv-upload-card h2 {
+  margin: 0 0 8px;
+}
+
+.transaction-form-card > p,
+.csv-upload-card > p {
+  margin: 0 0 20px;
+  color: #667085;
+}
+
+
+/* =========================
+   Transaction Form
+========================= */
+
+.transaction-form-card form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 16px;
+}
+
+.transaction-form-card label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #344054;
+}
+
+.transaction-form-card input,
+.transaction-form-card select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #172033;
+  outline: none;
+}
+
+.transaction-form-card input:focus,
+.transaction-form-card select:focus {
+  border-color: #6366f1;
+}
+
+.transaction-form-card form label {
+  grid-column: span 1;
+}
+
+.transaction-form-card form input,
+.transaction-form-card form select {
+  grid-column: span 1;
+}
+
+.transaction-form-card form button {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 9px;
+  padding: 12px 16px;
+  background: #172033;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.transaction-form-card form button:hover {
+  background: #27334a;
+}
+
+.transaction-form-card form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   CSV Upload
+========================= */
+
+.csv-upload-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.csv-drop-area {
+  border: 2px dashed #cbd5e1;
+  border-radius: 14px;
+  min-height: 180px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  background: #f8fafc;
+}
+
+.csv-drop-area strong {
+  font-size: 16px;
+}
+
+.csv-drop-area span {
+  color: #667085;
+  font-size: 13px;
+}
+
+.csv-drop-area input[type="file"] {
+  margin-top: 8px;
+  max-width: 100%;
+}
+
+.selected-file {
+  padding: 10
