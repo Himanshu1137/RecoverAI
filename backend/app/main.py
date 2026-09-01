@@ -48,10 +48,12 @@ app.add_middleware(
         "http://127.0.0.1:5173",
         "https://recover-ai-orcin-two.vercel.app",
     ],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 app.add_exception_handler(Exception, unhandled_exception_handler)
 
 app.include_router(health_router)
