@@ -19,6 +19,7 @@ services:
       CORS_ORIGIN: http://localhost:5173
       LLM_PROVIDER: mock
       AUTO_SEED_DEMO: "true"
+      JWT_SECRET: "recoverai-docker-development-secret-change-in-production"
     ports:
       - "8000:8000"
     depends_on:

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { simulateRecovery } from "../services/api";
 
 function RecoveryTable({ data, onRecovered }) {
@@ -60,8 +60,8 @@ function RecoveryTable({ data, onRecovered }) {
 
         <tbody>
           {data.map((payment) => (
-            <>
-              <tr key={payment.transaction_id}>
+            <Fragment key={payment.transaction_id}>
+              <tr>
                 <td>
                   {payment.transaction_id}
                 </td>
@@ -158,7 +158,7 @@ function RecoveryTable({ data, onRecovered }) {
                   </td>
                 </tr>
               )}
-            </>
+            </Fragment>
           ))}
         </tbody>
       </table>

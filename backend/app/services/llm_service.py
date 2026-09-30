@@ -1,6 +1,3 @@
-from google import genai
-from google.genai import types
-
 from app.core.config import settings
 
 
@@ -16,6 +13,14 @@ class LLMResponse:
 
 
 def call_gemini(messages, tool_schemas=None):
+    try:
+        from google import genai
+        from google.genai import types
+    except ImportError as exc:
+        raise RuntimeError(
+            "Gemini provider requires the google-genai package."
+        ) from exc
+
     tool_schemas = tool_schemas or []
 
     client = genai.Client(

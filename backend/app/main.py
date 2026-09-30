@@ -39,15 +39,14 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-from fastapi.middleware.cors import CORSMiddleware
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
+    allow_origins=list(dict.fromkeys([
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "https://recover-ai-orcin-two.vercel.app",
-    ],
+        settings.cors_origin,
+    ])),
     allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],

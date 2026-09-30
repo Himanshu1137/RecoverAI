@@ -9,6 +9,16 @@ import {
   CartesianGrid,
   ResponsiveContainer
 } from "recharts";
+import {
+  AlertTriangle,
+  BadgeIndianRupee,
+  CircleCheckBig,
+  Gauge,
+  ShieldCheck,
+  TrendingDown,
+  TrendingUp,
+  WalletCards
+} from "lucide-react";
 
 
 function Analytics() {
@@ -69,21 +79,25 @@ function Analytics() {
           <Stat
             title="Revenue Saved"
             value={`INR ${stats.revenue_saved.toLocaleString()}`}
+            icon={BadgeIndianRupee}
           />
 
           <Stat
             title="Successful Recoveries"
             value={stats.successful_recoveries}
+            icon={CircleCheckBig}
           />
 
           <Stat
             title="Recovery Rate"
             value={`${stats.recovery_rate}%`}
+            icon={Gauge}
           />
 
           <Stat
             title="Remaining At-Risk"
             value={`INR ${stats.after_at_risk_revenue.toLocaleString()}`}
+            icon={ShieldCheck}
           />
 
         </div>
@@ -100,21 +114,25 @@ function Analytics() {
           <Stat
             title="Failed Payments Before"
             value={stats.before_failed_payments}
+            icon={AlertTriangle}
           />
 
           <Stat
             title="Failed Payments After"
             value={stats.after_failed_payments}
+            icon={TrendingDown}
           />
 
           <Stat
             title="At-Risk Revenue Before"
             value={`INR ${stats.before_at_risk_revenue.toLocaleString()}`}
+            icon={WalletCards}
           />
 
           <Stat
             title="At-Risk Revenue After"
             value={`INR ${stats.after_at_risk_revenue.toLocaleString()}`}
+            icon={ShieldCheck}
           />
 
         </div>
@@ -152,6 +170,8 @@ function Analytics() {
               <Bar
                 dataKey="revenue"
                 name="At-Risk Revenue"
+                fill="#7654f6"
+                radius={[8, 8, 0, 0]}
               />
 
             </BarChart>
@@ -172,21 +192,25 @@ function Analytics() {
           <Stat
             title="Expected Recovery"
             value={`INR ${stats.expected_recovery.toLocaleString()}`}
+            icon={TrendingUp}
           />
 
           <Stat
             title="Recovered Revenue"
             value={`INR ${stats.recovered_revenue.toLocaleString()}`}
+            icon={CircleCheckBig}
           />
 
           <Stat
             title="Failed Payments Remaining"
             value={stats.failed_payments}
+            icon={AlertTriangle}
           />
 
           <Stat
             title="Current At-Risk Revenue"
             value={`INR ${stats.at_risk_revenue.toLocaleString()}`}
+            icon={WalletCards}
           />
 
         </div>
@@ -198,9 +222,10 @@ function Analytics() {
 }
 
 
-function Stat({ title, value }) {
+function Stat({ title, value, icon: Icon }) {
   return (
     <div className="stat-card">
+      {Icon && <span className="soft-icon violet"><Icon size={20} /></span>}
       <p>{title}</p>
       <h2>{value}</h2>
     </div>

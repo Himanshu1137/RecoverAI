@@ -1,9 +1,11 @@
 # RecoverAI — Intelligent Revenue Recovery Agent
 
-Complete Phase 1–8 starter project.
+Complete Phase 1–8 full-stack project with the exact RecoverAI demo dashboard
+design, responsive light/dark UI, recovery predictions, analytics, CSV import
+and an AI recovery agent.
 
 ## Stack
-- React + Vite
+- Vite + JavaScript frontend (React component source is also included)
 - FastAPI
 - PostgreSQL / SQLite fallback
 - Scikit-learn
@@ -15,8 +17,10 @@ Complete Phase 1–8 starter project.
 ```bash
 cd backend
 python -m venv venv
-venv\Scripts\activate
+# Windows: venv\Scripts\activate
+# macOS/Linux: source venv/bin/activate
 pip install -r requirements.txt
+cp .env.example .env
 uvicorn app.main:app --reload
 ```
 
@@ -24,13 +28,34 @@ uvicorn app.main:app --reload
 ```bash
 cd frontend
 npm install
+npm run build
 npm run dev
 ```
+
+The default frontend uses the same structure and styling as the published
+RecoverAI demo. It automatically connects to the local FastAPI backend and
+falls back to safe demo data when the API is offline.
+
+For a hosted backend, update `frontend/public/config.js` with the API URL.
+
+The frontend is available at `http://localhost:5173` and the API documentation
+at `http://localhost:8000/docs`.
+
+## Demo login
+
+- Email: `demo@recoverai.local`
+- Password: `RecoverAI123!`
+
+Demo data is created automatically when `AUTO_SEED_DEMO=true`.
 
 ## Tests
 ```bash
 cd backend
 pytest
+
+cd ../frontend
+npm run build
+npm run qa
 ```
 
 ## Docker
@@ -38,10 +63,13 @@ pytest
 docker compose up --build
 ```
 
-## Phase 8 AI Agent
-The included default provider is `mock`, so no external API key is needed.
-To connect a real provider, extend:
-`backend/app/services/llm_service.py`
+## Configuration
+
+- Copy `backend/.env.example` to `backend/.env`.
+- Copy `frontend/.env.example` to `frontend/.env`.
+- The included `mock` AI provider works without an external API key.
+- Replace `JWT_SECRET` before any production deployment.
+- To connect a real provider, configure `backend/app/services/llm_service.py`.
 
 The backend auto-creates and auto-seeds demo data by default.
 Set `AUTO_SEED_DEMO=false` to disable this behavior.

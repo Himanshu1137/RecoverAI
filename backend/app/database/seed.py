@@ -1,6 +1,11 @@
 from app.database.connection import SessionLocal
-from app.models import Transaction
+from app.models import Merchant, Transaction
+from app.services.auth_service import hash_password
 
+
+DEMO_MERCHANT_ID = "MER_DEMO"
+DEMO_EMAIL = "demo@recoverai.local"
+DEMO_PASSWORD = "RecoverAI123!"
 
 DEMO_PAYMENTS = [
     {
@@ -69,18 +74,45 @@ DEMO_PAYMENTS = [
 def seed():
     db = SessionLocal()
     try:
-        if db.query(Transaction).count() > 0:
-            print("Transactions already exist. Skipping seed.")
-            return
+        merchant = (
+            db.query(Merchant)
+            .filter(Merchant.merchant_id == DEMO_MERCHANT_ID)
+            .first()
+        )
 
+        if not merchant:
+            merchant = Merchant(
+                merchant_id=DEMO_MERCHANT_ID,
+                business_name="RecoverAI Demo",
+                email=DEMO_EMAIL,
+                password_hash=hash_password(DEMO_PASSWORD),
+                business_type="SaaS",
+                status="ACTIVE",
+            )
+            db.add(merchant)
+            db.flush()
+
+        added = 0
         for item in DEMO_PAYMENTS:
-            db.add(Transaction(**item))
+            existing = (
+                db.query(Transaction)
+                .filter(Transaction.transaction_id == item["transaction_id"])
+                .first()
+            )
+            if existing:
+                if not existing.merchant_id:
+                    existing.merchant_id = DEMO_MERCHANT_ID
+                continue
+
+            db.add(Transaction(merchant_id=DEMO_MERCHANT_ID, **item))
+            added += 1
 
         db.commit()
-        print(f"Seeded {len(DEMO_PAYMENTS)} demo transactions.")
+        print(f"Demo data ready. Added {added} transaction(s).")
     finally:
         db.close()
 
 
 if __name__ == "__main__":
     seed()
+

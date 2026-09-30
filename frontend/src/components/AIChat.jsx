@@ -30,6 +30,12 @@ function AIChat() {
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Which payments should I prioritize?"
         rows="4"
+        onKeyDown={(event) => {
+          if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            sendMessage();
+          }
+        }}
       />
 
       <button onClick={sendMessage} disabled={loading}>

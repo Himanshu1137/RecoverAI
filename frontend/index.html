@@ -1,12 +1,190 @@
+.
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RecoverAI</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RecoverAI intelligent revenue recovery dashboard demo">
+  <title>RecoverAI — Revenue Recovery Agent</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <svg class="sprite" aria-hidden="true">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M7 15h3"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.5 5.2L19 10l-5.5 1.8L12 17l-1.5-5.2L5 10l5.5-1.8L12 3Z"/><path d="m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V3m0 0L7 8m5-5 5 5M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></symbol>
+    <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7a3 3 0 0 1 3-3h12v4H6a3 3 0 0 0 0 6h15v6H6a3 3 0 0 1-3-3V7Z"/><path d="M18 11h3v6h-3a3 3 0 0 1 0-6Z"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-9M15 6h6v6"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5m0 3v.1"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/></symbol>
+  </svg>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="logo"><svg><use href="#i-zap"/></svg></div>
+      <div><strong>Recover<span>AI</span></strong><small>Revenue Intelligence</small></div>
+      <button class="icon-btn close-menu" id="closeMenu" aria-label="Close menu"><svg class="direct-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </div>
+    <nav aria-label="Main navigation">
+      <p class="nav-label">Workspace</p>
+      <button class="nav-item active" data-view="dashboard"><svg><use href="#i-grid"/></svg><span>Dashboard</span></button>
+      <button class="nav-item" data-view="transactions"><svg><use href="#i-card"/></svg><span>Transactions</span><b>12</b></button>
+      <button class="nav-item" data-view="agent"><svg><use href="#i-spark"/></svg><span>AI Recovery Agent</span></button>
+      <button class="nav-item" data-view="analytics"><svg class="direct-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Analytics</span></button>
+      <button class="nav-item" data-view="outcomes"><svg><use href="#i-check"/></svg><span>Outcomes</span></button>
+      <p class="nav-label">Actions</p>
+      <button class="nav-item" id="importNav"><svg><use href="#i-upload"/></svg><span>Import Payments</span></button>
+    </nav>
+    <div class="health">
+      <div class="health-head"><span><i></i> System healthy</span><strong>98%</strong></div>
+      <div class="health-bar"><span></span></div>
+      <small>Prediction API and agent online</small>
+    </div>
+    <div class="profile">
+      <div class="avatar">HP</div>
+      <div><strong>Himanshu Pal</strong><small>Merchant Admin</small></div>
+      <span>⋮</span>
+    </div>
+  </aside>
+  <button class="sidebar-backdrop" id="sidebarBackdrop" aria-label="Close navigation menu" tabindex="-1"></button>
+
+  <main>
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false"><svg class="direct-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="search"><svg><use href="#i-search"/></svg><input id="globalSearch" type="search" placeholder="Search transaction or customer..." aria-label="Search transactions"></div>
+      <div class="top-actions">
+        <button class="icon-btn mobile-header-action" id="themeBtn" aria-label="Switch to dark mode" aria-pressed="false"><svg class="direct-icon theme-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15.5A8.5 8.5 0 0 1 8.5 4 8.5 8.5 0 1 0 20 15.5Z"/></svg><svg class="direct-icon theme-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+        <button class="icon-btn notification mobile-header-action" id="notificationBtn" aria-label="View notifications"><svg class="direct-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9ZM10 21h4"/></svg><i></i></button>
+        <button class="primary-btn" id="importBtn"><svg><use href="#i-upload"/></svg> Import payments</button>
+      </div>
+    </header>
+
+    <section class="content view active" id="dashboard">
+      <div class="page-heading">
+        <div><p class="eyebrow" id="dateLabel">TODAY</p><h1>Revenue recovery overview</h1><p>Prioritize failed payments with intelligent scoring and AI-guided actions.</p></div>
+        <div class="live-pill"><i></i> Live predictions</div>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat purple"><div class="stat-icon"><svg><use href="#i-wallet"/></svg></div><div class="stat-meta"><span>Recoverable revenue</span><strong>₹4,86,240</strong><small><b>↑ 18.2%</b> from last month</small></div><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i></div></article>
+        <article class="stat cyan"><div class="stat-icon"><svg><use href="#i-trend"/></svg></div><div class="stat-meta"><span>Recovery success rate</span><strong>78.4%</strong><small><b>↑ 6.1%</b> this week</small></div><div class="ring" style="--value:78"><span>78%</span></div></article>
+        <article class="stat coral"><div class="stat-icon"><svg><use href="#i-alert"/></svg></div><div class="stat-meta"><span>Failed payments</span><strong>128</strong><small><em>32 high priority</em></small></div><div class="sparkline"><svg viewBox="0 0 100 38"><path d="M2 32 18 24 32 29 47 12 61 20 75 7 98 11"/><path class="fill" d="M2 32 18 24 32 29 47 12 61 20 75 7 98 11V38H2Z"/></svg></div></article>
+        <article class="stat amber"><div class="stat-icon"><svg><use href="#i-zap"/></svg></div><div class="stat-meta"><span>AI actions today</span><strong>46</strong><small><b>31 approved</b> · 15 pending</small></div><div class="agent-orb">AI</div></article>
+      </div>
+
+      <div class="dashboard-grid">
+        <article class="panel priority-panel">
+          <div class="panel-title"><div><h2>Priority recovery queue</h2><p>AI-ranked by recovery probability and value</p></div></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Transaction</th><th>Customer</th><th>Amount</th><th>Reason</th><th>AI score</th><th>Priority</th><th></th></tr></thead>
+              <tbody id="transactionRows">
+                <tr><td><strong>#TX-8942</strong><small>UPI · 10:42 AM</small></td><td><span class="customer c1">AK</span><strong>Aarav Kumar</strong></td><td><strong>₹24,900</strong></td><td>Network error</td><td><div class="score"><span style="width:92%"></span></div><strong>92%</strong></td><td><span class="badge high">High</span></td><td><button class="row-action" data-id="TX-8942">Review</button></td></tr>
+                <tr><td><strong>#TX-8938</strong><small>Card · 10:18 AM</small></td><td><span class="customer c2">PS</span><strong>Priya Sharma</strong></td><td><strong>₹18,450</strong></td><td>Insufficient funds</td><td><div class="score"><span style="width:84%"></span></div><strong>84%</strong></td><td><span class="badge high">High</span></td><td><button class="row-action" data-id="TX-8938">Review</button></td></tr>
+                <tr><td><strong>#TX-8921</strong><small>Net banking · 9:56 AM</small></td><td><span class="customer c3">RV</span><strong>Rahul Verma</strong></td><td><strong>₹12,700</strong></td><td>Bank timeout</td><td><div class="score"><span style="width:71%"></span></div><strong>71%</strong></td><td><span class="badge medium">Medium</span></td><td><button class="row-action" data-id="TX-8921">Review</button></td></tr>
+                <tr><td><strong>#TX-8914</strong><small>Wallet · 9:22 AM</small></td><td><span class="customer c4">NM</span><strong>Neha Mehta</strong></td><td><strong>₹8,250</strong></td><td>Limit exceeded</td><td><div class="score"><span style="width:58%"></span></div><strong>58%</strong></td><td><span class="badge low">Low</span></td><td><button class="row-action" data-id="TX-8914">Review</button></td></tr>
+                <tr><td><strong>#TX-8907</strong><small>Card · 8:48 AM</small></td><td><span class="customer c5">VS</span><strong>Vikram Singh</strong></td><td><strong>₹31,200</strong></td><td>Issuer unavailable</td><td><div class="score"><span style="width:89%"></span></div><strong>89%</strong></td><td><span class="badge high">High</span></td><td><button class="row-action" data-id="TX-8907">Review</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="queue-footer"><button class="view-all-btn" data-jump="transactions">View all transactions <svg><use href="#i-arrow"/></svg></button></div>
+        </article>
+
+        <article class="panel agent-card">
+          <div class="agent-glow"></div>
+          <div class="panel-title"><div><span class="ai-label"><svg><use href="#i-spark"/></svg> AI AGENT</span><h2>Recovery copilot</h2></div><span class="online">Online</span></div>
+          <div class="agent-summary">
+            <div><span>High-confidence value</span><strong>₹1,28,750</strong></div>
+            <div><span>Recommended actions</span><strong>7</strong></div>
+          </div>
+          <div class="agent-message"><div class="bot"><svg><use href="#i-spark"/></svg></div><p><span class="agent-note">Top insight</span>Retrying the selected payments between <strong>6–8 PM</strong> may improve recovery by <strong>23%</strong>.</p></div>
+          <div class="suggestions">
+            <button data-prompt="Which payments should I prioritize?">Which payments should I prioritize?</button>
+            <button data-prompt="Show best retry time">Show best retry time</button>
+            <button data-prompt="Analyze failure patterns">Analyze failure patterns</button>
+          </div>
+          <button class="open-agent-btn agent-launch" data-jump="agent"><span class="launch-icon"><svg><use href="#i-spark"/></svg></span><span><strong>Open AI Recovery Agent</strong><small>Ask questions and review recommendations</small></span><svg class="launch-arrow"><use href="#i-arrow"/></svg></button>
+        </article>
+      </div>
+
+      <div class="bottom-grid">
+        <article class="panel chart-panel">
+          <div class="panel-title"><div class="title-with-icon"><div><h2>Recovery performance</h2><p>Recovered vs failed revenue · last 7 days</p></div></div><select aria-label="Chart period"><option>Last 7 days</option><option>Last 30 days</option></select></div>
+          <div class="performance-summary">
+            <div><span class="performance-icon recovered-icon"><svg><use href="#i-trend"/></svg></span><p><small>Recovered this week</small><strong>₹4.32L</strong></p></div>
+            <div><span class="performance-icon failed-icon"><svg><use href="#i-alert"/></svg></span><p><small>Failed this week</small><strong>₹1.46L</strong></p></div>
+          </div>
+          <div class="legend"><span><i class="rec"></i>Recovered</span><span><i class="fail"></i>Failed</span></div>
+          <div class="chart"><div class="y-labels"><span>₹80K</span><span>₹60K</span><span>₹40K</span><span>₹20K</span><span>₹0</span></div><div class="columns">
+            <div><button class="bar rec chart-click" style="height:63%" data-chart-value="Monday: ₹50,400 recovered" aria-label="Monday recovered ₹50,400"></button><button class="bar fail chart-click" style="height:28%" data-chart-value="Monday: ₹22,400 failed" aria-label="Monday failed ₹22,400"></button><small>Mon</small></div>
+            <div><button class="bar rec chart-click" style="height:78%" data-chart-value="Tuesday: ₹62,400 recovered" aria-label="Tuesday recovered ₹62,400"></button><button class="bar fail chart-click" style="height:35%" data-chart-value="Tuesday: ₹28,000 failed" aria-label="Tuesday failed ₹28,000"></button><small>Tue</small></div>
+            <div><button class="bar rec chart-click" style="height:58%" data-chart-value="Wednesday: ₹46,400 recovered" aria-label="Wednesday recovered ₹46,400"></button><button class="bar fail chart-click" style="height:24%" data-chart-value="Wednesday: ₹19,200 failed" aria-label="Wednesday failed ₹19,200"></button><small>Wed</small></div>
+            <div><button class="bar rec chart-click" style="height:88%" data-chart-value="Thursday: ₹70,400 recovered" aria-label="Thursday recovered ₹70,400"></button><button class="bar fail chart-click" style="height:31%" data-chart-value="Thursday: ₹24,800 failed" aria-label="Thursday failed ₹24,800"></button><small>Thu</small></div>
+            <div><button class="bar rec chart-click" style="height:73%" data-chart-value="Friday: ₹58,400 recovered" aria-label="Friday recovered ₹58,400"></button><button class="bar fail chart-click" style="height:20%" data-chart-value="Friday: ₹16,000 failed" aria-label="Friday failed ₹16,000"></button><small>Fri</small></div>
+            <div><button class="bar rec chart-click" style="height:95%" data-chart-value="Saturday: ₹76,000 recovered" aria-label="Saturday recovered ₹76,000"></button><button class="bar fail chart-click" style="height:26%" data-chart-value="Saturday: ₹20,800 failed" aria-label="Saturday failed ₹20,800"></button><small>Sat</small></div>
+            <div><button class="bar rec chart-click" style="height:84%" data-chart-value="Sunday: ₹67,200 recovered" aria-label="Sunday recovered ₹67,200"></button><button class="bar fail chart-click" style="height:18%" data-chart-value="Sunday: ₹14,400 failed" aria-label="Sunday failed ₹14,400"></button><small>Sun</small></div>
+          </div></div>
+        </article>
+        <article class="panel methods">
+          <div class="panel-title"><div class="title-with-icon"><span class="section-icon cyan-section dashboard-analytics-icon"><svg><use href="#i-wallet"/></svg></span><div><h2>Failure breakdown</h2><p>By payment method</p></div></div></div>
+          <div class="donut-wrap"><div class="donut"><div><strong>128</strong><span>Total failed</span></div></div>
+            <ul><li><i class="upi"></i><span>UPI</span><strong>42%</strong></li><li><i class="card"></i><span>Cards</span><strong>31%</strong></li><li><i class="bank"></i><span>Net banking</span><strong>17%</strong></li><li><i class="wallet"></i><span>Wallets</span><strong>10%</strong></li></ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="content view" id="transactions">
+      <div class="page-heading"><div><p class="eyebrow">PAYMENT INTELLIGENCE</p><h1>Transactions</h1><p>Review, filter and prioritize failed payments.</p></div><button class="primary-btn import-alt"><svg><use href="#i-upload"/></svg> Import CSV</button></div>
+      <article class="panel full-panel"><div class="filter-row"><input id="tableSearch" placeholder="Search customer or transaction" aria-label="Search transaction list"><select id="priorityFilter" aria-label="Filter by priority"><option value="all">All priorities</option><option value="high">High priority</option><option value="medium">Medium priority</option><option value="low">Low priority</option></select><span id="transactionCount">6 payments shown</span></div><div class="transaction-cards" id="transactionCards"></div></article>
+    </section>
+
+    <section class="content view" id="agent">
+      <div class="page-heading"><div><p class="eyebrow">AI DECISION LAYER</p><h1>Recovery Agent</h1><p>Ask questions and turn payment signals into actions.</p></div><span class="live-pill"><i></i> Agent online</span></div>
+      <div class="agent-kpi-row"><div><span>Transactions analyzed</span><strong>128</strong></div><div><span>High-priority actions</span><strong>7</strong></div><div><span>Expected recovery</span><strong>₹1.28L</strong></div><div><span>Average confidence</span><strong>88%</strong></div></div>
+      <div class="agent-flow panel"><div class="flow-step complete"><span>1</span><div><strong>Analyze</strong><small>128 payments scanned</small></div></div><i></i><div class="flow-step complete"><span>2</span><div><strong>Prioritize</strong><small>7 actions ranked</small></div></div><i></i><div class="flow-step active"><span>3</span><div><strong>Recommend</strong><small>Merchant review</small></div></div><i></i><div class="flow-step"><span>4</span><div><strong>Execute</strong><small>Approval required</small></div></div></div>
+      <div class="agent-workspace"><article class="panel chat-panel"><div class="chat-toolbar"><div><span class="ai-status-dot"></span><div><strong>RecoverAI Copilot</strong><small>Payment recovery specialist</small></div></div><span>Live data connected</span></div><div class="chat-history" id="chatHistory"><div class="chat bot-chat"><div class="bot"><svg><use href="#i-spark"/></svg></div><p>Hello Himanshu. I’ve analyzed today’s failed payments. Ask me what to prioritize or how to improve recovery.</p></div></div><div class="big-agent-input"><input id="bigAgentInput" placeholder="Ask about recovery priorities, retry times, or failure patterns..."><button id="bigAgentSend"><svg><use href="#i-arrow"/></svg> Send</button></div></article><aside class="panel insight-list"><div class="side-section-title"><span>QUICK ANALYSIS</span><h2>Suggested questions</h2></div><button>Which payments should I prioritize?</button><button>What is the best retry time?</button><button>Why are UPI payments failing?</button><button>Show high-value customers at risk</button><div class="mini-insight"><span>Potential today</span><strong>₹1,28,750</strong><small>Across 7 recommended actions</small><div class="potential-bar"><i></i></div></div><div class="agent-safety"><svg><use href="#i-check"/></svg><span>Recommendations require merchant approval before execution.</span></div></aside></div>
+    </section>
+
+    <section class="content view" id="analytics">
+      <div class="page-heading"><div><p class="eyebrow">PERFORMANCE</p><h1>Recovery analytics</h1><p>Measure revenue impact, model quality and payment-channel performance.</p></div><select class="period-select" aria-label="Analytics period"><option>Last 30 days</option><option>Last 7 days</option><option>Last 90 days</option></select></div>
+      <div class="analytics-cards">
+        <article class="panel analytic-card purple-kpi"><div class="analytic-icon"><svg><use href="#i-spark"/></svg></div><div><span>Prediction accuracy</span><strong>91.8%</strong><small><b>↑ 2.4%</b> vs previous period</small></div><div class="long-progress"><i style="width:91.8%"></i></div></article>
+        <article class="panel analytic-card cyan-kpi"><div class="analytic-icon"><svg><use href="#i-wallet"/></svg></div><div><span>Revenue recovered</span><strong>₹12.4L</strong><small><b>↑ 18.2%</b> in 30 days</small></div><div class="long-progress"><i style="width:82%"></i></div></article>
+        <article class="panel analytic-card amber-kpi"><div class="analytic-icon"><svg><use href="#i-trend"/></svg></div><div><span>Average retry lift</span><strong>+23%</strong><small><b>↑ 5.6%</b> from AI windows</small></div><div class="long-progress"><i style="width:73%"></i></div></article>
+        <article class="panel analytic-card coral-kpi"><div class="analytic-icon"><svg><use href="#i-zap"/></svg></div><div><span>Actions approved</span><strong>84.6%</strong><small>312 of 369 suggestions</small></div><div class="long-progress"><i style="width:84.6%"></i></div></article>
+      </div>
+      <div class="analytics-main-grid"><article class="panel trend-panel"><div class="panel-title"><div class="title-with-icon"><span class="section-icon"><svg><use href="#i-chart"/></svg></span><div><h2>30-day recovery trend</h2><p>Hover over a point to view the recovered amount</p></div></div><div class="trend-total"><span>This month</span><strong>₹12.4L</strong></div></div><div class="trend-legend"><span><i></i>Recovered revenue</span><span><i></i>Target</span></div><div class="line-visual"><svg viewBox="0 0 600 220" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7657ff" stop-opacity=".4"/><stop offset="1" stop-color="#7657ff" stop-opacity="0"/></linearGradient></defs><path class="target-line" d="M0 140 C140 128 250 115 360 94 S500 65 600 48"/><path class="area" d="M0 185C70 170 80 110 145 125s90 20 135-35 105 30 150-20 100-5 170-55V220H0Z"/><path class="line" d="M0 185C70 170 80 110 145 125s90 20 135-35 105 30 150-20 100-5 170-55"/></svg><button class="trend-point chart-hover" style="--x:8%;--y:72%" data-chart-value="Week 1: ₹2.40 lakh recovered" aria-label="Week 1 ₹2.40 lakh recovered"></button><button class="trend-point chart-hover" style="--x:33%;--y:48%" data-chart-value="Week 2: ₹2.85 lakh recovered" aria-label="Week 2 ₹2.85 lakh recovered"></button><button class="trend-point chart-hover" style="--x:61%;--y:34%" data-chart-value="Week 3: ₹3.20 lakh recovered" aria-label="Week 3 ₹3.20 lakh recovered"></button><button class="trend-point chart-hover" style="--x:91%;--y:13%" data-chart-value="Week 4: ₹3.95 lakh recovered" aria-label="Week 4 ₹3.95 lakh recovered"></button><div class="trend-axis"><span>Week 1</span><span>Week 2</span><span>Week 3</span><span>Week 4</span></div></div></article><article class="panel model-panel"><div class="panel-title"><div class="title-with-icon"><span class="section-icon cyan-section"><svg><use href="#i-spark"/></svg></span><div><h2>Model signals</h2><p>Top factors affecting recovery</p></div></div><span class="model-badge">ML v2.4</span></div><div class="signal"><span>Previous success rate</span><div><i style="width:88%"></i></div><b>88</b></div><div class="signal"><span>Failure reason</span><div><i style="width:74%"></i></div><b>74</b></div><div class="signal"><span>Customer lifetime value</span><div><i style="width:62%"></i></div><b>62</b></div><div class="signal"><span>Attempt number</span><div><i style="width:49%"></i></div><b>49</b></div><div class="model-note"><svg><use href="#i-check"/></svg><p><strong>Model health is strong</strong><span>Accuracy and calibration are within target.</span></p></div></article></div>
+      <div class="channel-grid"><article class="panel channel-card chart-click" tabindex="0" role="button" data-chart-value="UPI: 82% recovered · ₹5.2 lakh"><div><span class="channel-icon upi-icon"><svg><use href="#i-zap"/></svg></span><strong>UPI</strong></div><b>82% recovered</b><div><i style="width:82%"></i></div><small>₹5.2L recovered</small></article><article class="panel channel-card chart-click" tabindex="0" role="button" data-chart-value="Cards: 76% recovered · ₹3.8 lakh"><div><span class="channel-icon card-icon"><svg><use href="#i-card"/></svg></span><strong>Cards</strong></div><b>76% recovered</b><div><i style="width:76%"></i></div><small>₹3.8L recovered</small></article><article class="panel channel-card chart-click" tabindex="0" role="button" data-chart-value="Net banking: 71% recovered · ₹2.1 lakh"><div><span class="channel-icon bank-icon"><svg><use href="#i-trend"/></svg></span><strong>Net banking</strong></div><b>71% recovered</b><div><i style="width:71%"></i></div><small>₹2.1L recovered</small></article><article class="panel channel-card chart-click" tabindex="0" role="button" data-chart-value="Wallets: 64% recovered · ₹1.3 lakh"><div><span class="channel-icon wallet-icon"><svg><use href="#i-wallet"/></svg></span><strong>Wallets</strong></div><b>64% recovered</b><div><i style="width:64%"></i></div><small>₹1.3L recovered</small></article></div>
+    </section>
+
+    <section class="content view" id="outcomes">
+      <div class="page-heading"><div><p class="eyebrow">FEEDBACK LOOP</p><h1>Recovery outcomes</h1><p>Track completed actions and feed their results back into prediction quality.</p></div><span class="outcome-period">Today · 128 actions</span></div>
+      <div class="outcome-overview panel"><div class="outcome-rate"><div class="outcome-ring"><span><strong>73.4%</strong><small>success rate</small></span></div><div><span>Revenue recovered today</span><strong>₹3,72,450</strong><small>94 successful payments from 128 recovery actions</small></div></div><div class="outcome-breakdown"><div><span>Recovered</span><strong>94</strong><i><b style="width:73.4%"></b></i></div><div><span>In progress</span><strong>21</strong><i><b style="width:16.4%"></b></i></div><div><span>Not recovered</span><strong>13</strong><i><b style="width:10.2%"></b></i></div></div></div>
+      <div class="outcome-grid"><article class="outcome success"><div><svg><use href="#i-check"/></svg></div><span>Successfully recovered</span><strong>94</strong><small>₹3,72,450 total</small><p>+12.8% from yesterday</p></article><article class="outcome pending"><div><svg><use href="#i-trend"/></svg></div><span>In progress</span><strong>21</strong><small>Retry scheduled</small><p>₹86,200 potential value</p></article><article class="outcome failed"><div><svg><use href="#i-alert"/></svg></div><span>Not recovered</span><strong>13</strong><small>Alternative action needed</small><p>10.2% of today’s actions</p></article></div>
+      <article class="panel timeline"><div class="timeline-head"><div><span>LIVE ACTIVITY</span><h2>Recent recovery activity</h2></div><button class="timeline-filter">All outcomes</button></div><div><i class="success-dot"></i><p><strong>₹24,900 recovered from Aarav Kumar</strong><span>Smart UPI retry completed · 4 minutes ago</span></p><b>Success</b></div><div><i class="pending-dot"></i><p><strong>Card retry scheduled for Priya Sharma</strong><span>Best window: today, 6:30 PM · 18 minutes ago</span></p><b class="scheduled">Scheduled</b></div><div><i class="success-dot"></i><p><strong>₹12,700 recovered from Rahul Verma</strong><span>Alternate net-banking route · 36 minutes ago</span></p><b>Success</b></div><div><i class="failed-dot"></i><p><strong>Alternate route suggested for Neha Mehta</strong><span>Wallet limit exceeded · 52 minutes ago</span></p><b class="needs-action">Needs action</b></div></article>
+    </section>
+  </main>
+
+  <div class="modal" id="importModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card"><button class="icon-btn modal-close" id="modalClose" aria-label="Close"><svg><use href="#i-x"/></svg></button><div class="upload-icon"><svg><use href="#i-upload"/></svg></div><h2 id="modalTitle">Import failed payments</h2><p>Upload a CSV file. RecoverAI will validate, score and prioritize each transaction.</p><label class="drop-zone"><input type="file" id="fileInput" accept=".csv"><svg><use href="#i-upload"/></svg><strong>Choose CSV file</strong><span>or drag and drop here</span></label><div class="modal-note"><svg><use href="#i-check"/></svg> Demo mode — no real payment data is uploaded.</div></div>
+  </div>
+  <div class="modal" id="reviewModal" role="dialog" aria-modal="true" aria-labelledby="reviewTitle">
+    <div class="modal-card review-card"><button class="icon-btn modal-close" id="reviewClose" aria-label="Close review"><svg><use href="#i-x"/></svg></button><div class="review-heading"><div class="upload-icon"><svg><use href="#i-spark"/></svg></div><div><span>AI RECOMMENDATION</span><h2 id="reviewTitle">Transaction review</h2></div></div><div class="review-grid"><div><span>Customer</span><strong id="reviewCustomer">—</strong></div><div><span>Amount</span><strong id="reviewAmount">—</strong></div><div><span>Failure reason</span><strong id="reviewReason">—</strong></div><div><span>Recovery score</span><strong id="reviewScore">—</strong></div></div><div class="recommendation"><svg><use href="#i-zap"/></svg><p><strong>Recommended action</strong><span id="reviewAdvice">Retry payment in the predicted success window.</span></p></div><button class="primary-btn approve-btn" id="approveAction"><svg><use href="#i-check"/></svg> Approve recovery action</button></div>
+  </div>
+  <div class="chart-tooltip" id="chartTooltip" role="status" aria-live="polite"></div>
+  <div class="toast" id="toast"><svg><use href="#i-check"/></svg><span>Action completed</span></div>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
 </html>
